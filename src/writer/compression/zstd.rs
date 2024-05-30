@@ -57,8 +57,12 @@ impl Compressor for ZstdCompressor {
         let current_len = output.len();
         let max_additional_len = zstd_safe::compress_bound(input.len());
         output.ensure_size(current_len + max_additional_len);
-        let additional_len = zstd::block::compress_to_buffer(input, 
-            &mut output[current_len..], self.compression_level).unwrap();
+        let additional_len = zstd::bulk::compress_to_buffer(
+            input,
+            &mut output[current_len..],
+            self.compression_level,
+        )
+        .unwrap();
         output.resize(current_len + additional_len);
     }
 }
