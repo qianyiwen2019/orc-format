@@ -1,6 +1,6 @@
 
 mod buffer;
-mod protos;
+pub mod protos;
 pub mod reader;
 pub mod schema;
 pub mod writer;
